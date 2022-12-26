@@ -1,0 +1,47 @@
+<h3>Buscar por Región <small> {{regionActiva | titlecase}}</small></h3>
+<hr>
+
+<h5>Seleccione la region </h5>
+
+<!-- primara froma de hacer heredar clases  -->
+<!-- [class.btn-primary] = region == regionActiva -->
+
+<!-- segunda forma  -->
+<!-- [ngClass]="{
+    'btn-primary': regionActiva === region,
+    'btn-outline-primary': regionActiva !== region
+
+}" -->
+
+<!-- Tercera opcion  -->
+<!-- [class] = "(region ===  regionActiva) ? 'btn btn-primary' : 'btn btn-outline-primary' " -->
+
+
+<!-- cuarta opcion -->
+
+<!-- [class] = "getClaseCSS(region)" -->
+<div class="row">
+    <div class="col">
+        <button *ngFor="let region of regiones"
+                class="btn btn-outline-primary"
+                [ngClass]="{
+                    'btn-primary': regionActiva === region,
+                    'btn-outline-primary': regionActiva !== region
+                
+                }"
+                (click)="activarRegion(region)"
+        >
+            {{region | titlecase}}
+        </button>
+    </div>
+</div>
+
+<div class="alert alert-danger" *ngIf="hayError">
+    No se encontro la busqueda {{regionActiva}}
+</div>
+
+<div *ngIf="paises.length > 0" class="row">
+    <div class="col">
+        <app-paises-tabla [paises]="paises"></app-paises-tabla>
+    </div>
+</div>
